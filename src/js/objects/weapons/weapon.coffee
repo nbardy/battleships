@@ -1,24 +1,37 @@
 new_projectile_type = require('./projectile.js')
 
-render = ->
+closest = (position, targets) ->
+  targets[0]
+
+render = undefined
   # no render
 
 update = (dt, state) ->
   # Cooldown counts up to rate to ready firing
-  if @cooldown < @rate
-    @cooldown = @cooldown + dt
+  @cooldown = @cooldown - dt
 
-  closet_ship = closest(ships)
+  # Don't let cooldown go past zero
+  if @cooldown < 0
+    @cooldown = 0
+
+  closest_ship = closest(@position, state.targetables)
+
+  distance = 0
 
   # Fire projectile and reset cooldown
-  if @cooldown >= @rate and distance <= @range
-    new_projectile = @fire_projectile
-      position:
+  if @cooldown == 0 and distance <= @range
+    new_projectile =
+      @fire_projectile
         x: @position.x
         y: @position.y
-    @cooldown = @cooldown - @rate
+      ,
+        closest_ship
+
+    @cooldown = @rate
   
-  [this, new_projectile]
+  # Return weapon plus any projectiles it fires
+  # or just weapon if none are fired
+  [this].concat(new_projectile || [])
 
 # Options:(
 #   range (in pixels)
@@ -27,13 +40,15 @@ update = (dt, state) ->
 #     texture
 #     speed
 #     acceleration
-module.exports = (options) ->
-  (position)->
+module.exports = (options={}) ->
+  (position={})->
     type: 'weapon'
     range: options.range || 50
     rate: options.rate || 10
     acceleration: options.acceleration || 0
-    render: render
+    update: update
+
+    cooldown: 0
 
     position:
       x: position.x || 0

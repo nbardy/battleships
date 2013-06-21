@@ -16,11 +16,18 @@ module.exports = ->
     window.innerWidth /2 - 50,
     window.innerHeight /2 - 50
   )
+  laser = Weapons.laser(
+    x: 200
+    y: 100
+  )
+
   targetables:
     [
       small
       small2
       large
     ]
-  weapons: []
+  weapons: [
+    laser
+  ]
   projectiles: []

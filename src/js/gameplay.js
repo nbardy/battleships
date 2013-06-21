@@ -3,16 +3,16 @@
 
   module.exports = {
     progress: function(state) {
-      var dt, item, new_items, next_state, renderables, _i, _j, _len, _len1;
+      var all_items, dt, item, new_items, next_state, _i, _j, _len, _len1;
       next_state = {
         targetables: [],
         projectiles: [],
         weapons: []
       };
       dt = 0.1;
-      renderables = state.targetables.concat(state.projectiles);
-      for (_i = 0, _len = renderables.length; _i < _len; _i++) {
-        item = renderables[_i];
+      all_items = state.targetables.concat(state.projectiles).concat(state.weapons);
+      for (_i = 0, _len = all_items.length; _i < _len; _i++) {
+        item = all_items[_i];
         new_items = [].concat(item.update(dt, state));
         for (_j = 0, _len1 = new_items.length; _j < _len1; _j++) {
           item = new_items[_j];
@@ -23,7 +23,7 @@
             case "ship":
               next_state.targetables.push(item);
               break;
-            case "projectiles":
+            case "projectile":
               next_state.projectiles.push(item);
           }
         }

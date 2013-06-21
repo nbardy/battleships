@@ -8,10 +8,10 @@
 
   module.exports = new_weapon({
     range: 100,
-    rate: 1,
+    rate: 0.1,
     projectile: {
       texture: laser_texture,
-      speed: 0.2,
+      speed: 24,
       acceleration: 0
     }
   });
