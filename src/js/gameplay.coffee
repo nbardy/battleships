@@ -18,6 +18,10 @@ module.exports =
           when "ship" then next_state.targetables.push item
           when "projectile"
             next_state.projectiles.push item
+        
+        # move attachments
+        if item.attached_to
+          item.position.x = item.attached_to.position.x
+          item.position.y = item.attached_to.position.y
 
     next_state
-

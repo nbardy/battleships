@@ -7,12 +7,14 @@
   laser_texture = PIXI.Texture.fromImage("laser.png");
 
   module.exports = new_weapon({
-    range: 100,
+    range: 90,
     rate: 0.1,
     projectile: {
       texture: laser_texture,
-      speed: 24,
-      acceleration: 0
+      speed: 75,
+      acceleration: 0,
+      width: 6,
+      height: 4
     }
   });
 

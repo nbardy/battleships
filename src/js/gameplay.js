@@ -26,6 +26,10 @@
             case "projectile":
               next_state.projectiles.push(item);
           }
+          if (item.attached_to) {
+            item.position.x = item.attached_to.position.x;
+            item.position.y = item.attached_to.position.y;
+          }
         }
       }
       return next_state;

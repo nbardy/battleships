@@ -1,5 +1,11 @@
 texture = PIXI.Texture.fromImage("ship.png")
 
+attach = (item) ->
+  @attachments.concat(item)
+  item.attached_to = this
+  item.position.x = @position.x
+  item.position.y = @position.y
+
 default_render = ->
   sprite = new PIXI.Sprite(texture)
   sprite.anchor.x = .5
@@ -48,5 +54,7 @@ new_ship = (options={}) ->
     xacel: 0
     yacel: 0
     texture: texture
+    attachments: [] # Initializes with 0 attachments
+    attach: attach
 
 module.exports = new_ship

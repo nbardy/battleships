@@ -1,7 +1,26 @@
 new_projectile_type = require('./projectile.js')
 
-closest = (position, targets) ->
-  targets[0]
+distance = (item1,item2) ->
+  xpart = Math.pow(item1.position.x - item2.position.x, 2)
+  ypart = Math.pow(item1.position.y - item2.position.y, 2)
+  Math.sqrt(xpart + ypart)
+
+closest = (launcher, targets) ->
+  closest_distance = Number.MAX_VALUE
+
+  for target in targets
+    this_distance = distance(launcher,target)
+    is_closer = this_distance < closest_distance
+
+    # Make sure launcher is not fire on itself if it is
+    # attached to something
+    is_not_attached = !(launcher.attached_to == target)
+
+    if is_closer and is_not_attached
+      closest_target = target
+      closest_distance = this_distance
+
+  closest_target
 
 render = undefined
   # no render
@@ -14,12 +33,10 @@ update = (dt, state) ->
   if @cooldown < 0
     @cooldown = 0
 
-  closest_ship = closest(@position, state.targetables)
-
-  distance = 0
+  closest_ship = closest(this, state.targetables)
 
   # Fire projectile and reset cooldown
-  if @cooldown == 0 and distance <= @range
+  if @cooldown == 0 and distance(this,closest_ship) <= @range
     new_projectile =
       @fire_projectile
         x: @position.x
@@ -58,3 +75,6 @@ module.exports = (options={}) ->
       texture: options.projectile.texture
       speed: options.projectile.speed
       acceleration: options.projectile.acceleration
+      width: options.projectile.width
+      height: options.projectile.height
+

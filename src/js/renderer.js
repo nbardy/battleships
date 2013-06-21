@@ -22,12 +22,17 @@
           var render_objects, stage;
           stage = new PIXI.Stage(0x66FF99);
           render_objects = function(objects) {
-            var object, _i, _len, _results;
+            var object, sprite, _i, _len, _results;
             _results = [];
             for (_i = 0, _len = objects.length; _i < _len; _i++) {
               object = objects[_i];
               if (object.render != null) {
-                _results.push(stage.addChild(object.render()));
+                sprite = object.render();
+                if (sprite != null) {
+                  _results.push(stage.addChild(sprite));
+                } else {
+                  _results.push(void 0);
+                }
               } else {
                 _results.push(void 0);
               }

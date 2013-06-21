@@ -29,7 +29,9 @@ module.exports =
       render_objects = (objects) ->
         for object in objects
           if object.render?
-            stage.addChild object.render()
+            sprite = object.render()
+            if sprite?
+              stage.addChild  sprite
 
       render_objects(state.targetables)
       render_objects(state.projectiles)

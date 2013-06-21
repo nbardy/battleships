@@ -2,7 +2,8 @@
 (function() {
 
   module.exports = {
-    laser: require('./laser')
+    laser: require('./laser'),
+    cannon: require('./cannon')
   };
 
 }).call(this);
