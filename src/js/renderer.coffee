@@ -4,7 +4,11 @@ window.PIXI = document.PIXI = PIXI
 module.exports =
   create: ->
     # create a renderer instance.
-    renderer = PIXI.autoDetectRenderer(400, 300)
+    renderer = PIXI.autoDetectRenderer(
+      window.innerWidth - 50,
+      window.innerHeight - 50
+    )
+
     @renderer = renderer
 
     # add the renderer view element to the DOM

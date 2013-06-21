@@ -1,12 +1,13 @@
 var header = document.createElement('h4')
-header.innerHTML = "truck"
+header.innerHTML = "Battelships"
 document.body.appendChild(header)
 
 renderer = require('./renderer.js')
 gameplay = require('./gameplay.js')
+new_game = require('./new_game.js')
 
 view = renderer.create()
-state = gameplay.create()
+state = new_game()
 
 requestAnimFrame(update)
 

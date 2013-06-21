@@ -9,7 +9,7 @@
   module.exports = {
     create: function() {
       var renderer;
-      renderer = PIXI.autoDetectRenderer(400, 300);
+      renderer = PIXI.autoDetectRenderer(window.innerWidth - 50, window.innerHeight - 50);
       this.renderer = renderer;
       document.body.appendChild(this.renderer.view);
       return {
