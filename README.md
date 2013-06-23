@@ -1,3 +1,10 @@
+Starting
+-------
+
+git clone https://github.com/nbardy/battleships
+cd battleships
+./dev.sh
+
 Organization of Code
 -------------------
 
