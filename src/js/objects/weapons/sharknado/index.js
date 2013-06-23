@@ -4,18 +4,18 @@
 
   new_weapon = require('../weapon.js');
 
-  texture = PIXI.Texture.fromImage("short-bullet.png");
+  texture = PIXI.Texture.fromImage("sharknado.png");
 
   module.exports = new_weapon({
-    range: 400,
-    rate: 5,
+    range: 900,
+    rate: 2,
     projectile: {
       texture: texture,
-      speed: 60,
-      acceleration: 0,
-      damage: 7.5,
+      speed: 12,
+      acceleration: .1,
+      damage: 10,
       width: .5,
-      height: .5
+      height: .7
     }
   });
 

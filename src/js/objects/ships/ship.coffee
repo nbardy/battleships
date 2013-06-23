@@ -1,5 +1,8 @@
 texture = PIXI.Texture.fromImage("ship.png")
 
+hit = (item) ->
+  @health -= item.damage
+
 attach = (item) ->
   @attachments.concat(item)
   item.attached_to = this
@@ -7,7 +10,7 @@ attach = (item) ->
   item.position.y = @position.y
 
 default_render = ->
-  sprite = new PIXI.Sprite(texture)
+  sprite = new PIXI.Sprite(@texture)
   sprite.anchor.x = .5
   sprite.anchor.y = .5
   sprite.position.x = @position.x
@@ -36,13 +39,17 @@ default_update = (dt) ->
     ( Math.pow(window.innerHeight/2 - @position.y, 3) * 0.00000001 )
   )
 
-  this
+  if @health > 0
+    this
+  else
+    []
 
 new_ship = (options={}) ->
   (xpos, ypos) ->
     type: "ship"
     render: options.render || default_render
     update: options.update || default_update
+    health: options.health || 100
     position:
       x: xpos || 0
       y: ypos || 0
@@ -53,8 +60,9 @@ new_ship = (options={}) ->
     yvel: 0
     xacel: 0
     yacel: 0
-    texture: texture
+    texture: options.texture || texture
     attachments: [] # Initializes with 0 attachments
     attach: attach
+    hit: hit
 
 module.exports = new_ship

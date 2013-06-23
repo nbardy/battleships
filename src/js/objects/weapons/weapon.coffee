@@ -26,6 +26,8 @@ render = undefined
   # no render
 
 update = (dt, state) ->
+  if (@attached_to? && @attached_to.health) <= 0
+    return []
   # Cooldown counts up to rate to ready firing
   @cooldown = @cooldown - dt
 
@@ -33,16 +35,19 @@ update = (dt, state) ->
   if @cooldown < 0
     @cooldown = 0
 
-  closest_ship = closest(this, state.targetables)
+  closest_target = closest(this, state.targetables)
 
   # Fire projectile and reset cooldown
-  if @cooldown == 0 and distance(this,closest_ship) <= @range
+  if @cooldown == 0 and
+  closest_target? and
+  distance(this,closest_target) <= @range
+
     new_projectile =
       @fire_projectile
         x: @position.x
         y: @position.y
       ,
-        closest_ship
+        closest_target
 
     @cooldown = @rate
   
@@ -71,10 +76,5 @@ module.exports = (options={}) ->
       x: position.x || 0
       y: position.y || 0
     
-    fire_projectile: new_projectile_type
-      texture: options.projectile.texture
-      speed: options.projectile.speed
-      acceleration: options.projectile.acceleration
-      width: options.projectile.width
-      height: options.projectile.height
-
+    # Create new projectile type for this weapon type
+    fire_projectile: new_projectile_type options.projectile

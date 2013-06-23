@@ -33,7 +33,7 @@ module.exports =
             if sprite?
               stage.addChild  sprite
 
-      render_objects(state.targetables)
       render_objects(state.projectiles)
+      render_objects(state.targetables)
 
       stage

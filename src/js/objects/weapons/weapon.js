@@ -30,17 +30,20 @@
   render = void 0;
 
   update = function(dt, state) {
-    var closest_ship, new_projectile;
+    var closest_target, new_projectile;
+    if (((this.attached_to != null) && this.attached_to.health) <= 0) {
+      return [];
+    }
     this.cooldown = this.cooldown - dt;
     if (this.cooldown < 0) {
       this.cooldown = 0;
     }
-    closest_ship = closest(this, state.targetables);
-    if (this.cooldown === 0 && distance(this, closest_ship) <= this.range) {
+    closest_target = closest(this, state.targetables);
+    if (this.cooldown === 0 && (closest_target != null) && distance(this, closest_target) <= this.range) {
       new_projectile = this.fire_projectile({
         x: this.position.x,
         y: this.position.y
-      }, closest_ship);
+      }, closest_target);
       this.cooldown = this.rate;
     }
     return [this].concat(new_projectile || []);
@@ -65,13 +68,7 @@
           x: position.x || 0,
           y: position.y || 0
         },
-        fire_projectile: new_projectile_type({
-          texture: options.projectile.texture,
-          speed: options.projectile.speed,
-          acceleration: options.projectile.acceleration,
-          width: options.projectile.width,
-          height: options.projectile.height
-        })
+        fire_projectile: new_projectile_type(options.projectile)
       };
     };
   };

@@ -3,7 +3,8 @@
 
   module.exports = {
     small: require('./small'),
-    large: require('./large')
+    large: require('./large'),
+    sharktopus: require('./sharktopus')
   };
 
 }).call(this);

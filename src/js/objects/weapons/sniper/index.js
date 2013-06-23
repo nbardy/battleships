@@ -4,18 +4,18 @@
 
   new_weapon = require('../weapon.js');
 
-  texture = PIXI.Texture.fromImage("short-bullet.png");
+  texture = PIXI.Texture.fromImage("long-bullet.png");
 
   module.exports = new_weapon({
-    range: 400,
-    rate: 5,
+    range: 900,
+    rate: 13,
     projectile: {
       texture: texture,
-      speed: 60,
+      speed: 125,
       acceleration: 0,
-      damage: 7.5,
-      width: .5,
-      height: .5
+      damage: 100,
+      width: .2,
+      height: .4
     }
   });
 

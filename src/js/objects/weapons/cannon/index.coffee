@@ -6,10 +6,11 @@ texture = PIXI.Texture.fromImage("short-bullet.png")
 module.exports =
   new_weapon
     range: 400
-    rate: 15
+    rate: 5
     projectile:
       texture: texture
       speed: 60
       acceleration: 0
+      damage: 7.5
       width: .5
       height: .5

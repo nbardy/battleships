@@ -9,28 +9,25 @@
   document.weapons = Weapons;
 
   module.exports = function() {
-    var cannon1, cannon2, large, laser, small1, small2;
+    var cannon1, cannon2, large, laser, sharknado, sharktopus, small1, small2, small3, sniper;
     small1 = Ships.small(window.innerWidth / 2 + 50, window.innerHeight / 2 - 50);
     small2 = Ships.small(window.innerWidth / 2 - 50, window.innerHeight / 2 + 50);
+    small3 = Ships.small(window.innerWidth / 2 + 75, window.innerHeight / 2 + 200);
     large = Ships.large(window.innerWidth / 2 - 50, window.innerHeight / 2 - 50);
-    laser = Weapons.laser({
-      x: window.innerHeight / 2 + 300,
-      y: window.innerHeight / 2
-    });
-    cannon1 = Weapons.cannon({
-      x: window.innerHeight / 2 - 100,
-      y: window.innerHeight / 2 + 50
-    });
-    cannon2 = Weapons.cannon({
-      x: window.innerHeight / 2 - 100,
-      y: window.innerHeight / 2 + 50
-    });
+    sharktopus = Ships.sharktopus(window.innerWidth / 2 - 200, window.innerHeight / 2 - 200);
+    laser = Weapons.laser();
+    sharknado = Weapons.sharknado();
+    sniper = Weapons.sniper();
+    cannon1 = Weapons.cannon();
+    cannon2 = Weapons.cannon();
     large.attach(laser);
+    sharktopus.attach(sharknado);
     small1.attach(cannon1);
     small2.attach(cannon2);
+    small3.attach(sniper);
     return {
-      targetables: [small1, small2, large],
-      weapons: [cannon1, cannon2, laser],
+      targetables: [sharktopus, small1, small2, small3, large],
+      weapons: [cannon1, cannon2, laser, sniper, sharknado],
       projectiles: []
     };
   };

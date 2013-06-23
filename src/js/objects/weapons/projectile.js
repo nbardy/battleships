@@ -46,6 +46,17 @@
 
   update = function(dt) {
     var diff, direction, distance, invDist;
+    if (this.target != null) {
+      this.last_target = {
+        position: {
+          x: this.target.position.x,
+          y: this.target.position.y
+        },
+        hit: function() {}
+      };
+    } else {
+      this.target = this.last_target;
+    }
     diff = minus(this.target.position, this.position);
     distance = length(diff);
     invDist = 1 / distance;
@@ -57,6 +68,7 @@
     this.position.y += direction.y * this.speed * dt;
     this.rotation = Math.atan2(direction.y, direction.x);
     if (distance < 20) {
+      this.target.hit(this);
       return [];
     } else {
       return this;
@@ -74,6 +86,7 @@
         speed: options.speed || 1,
         width: options.width || 1,
         height: options.height || 1,
+        damage: options.damage || 1,
         texture: options.texture,
         render: render,
         target: target,

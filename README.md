@@ -18,3 +18,4 @@ Icons by
 --------
 
 Bullet designed by mathies janssen from The Noun Project
+Shark Fin designed by Razlan Hanafiah from the Noun Project

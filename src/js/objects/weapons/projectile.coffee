@@ -32,6 +32,17 @@ render = ->
     undefined
 
 update = (dt) ->
+  # If target is destroyed while projectile is in route
+  # send projectile to last position and dissapear on hit
+  if @target?
+    @last_target =
+      position:
+        x: @target.position.x
+        y: @target.position.y
+      hit: -> # Do nothing
+  else
+    @target = @last_target
+
   # Find vector in direction of motion
   diff = minus(@target.position, @position)
   distance = length diff
@@ -44,7 +55,9 @@ update = (dt) ->
   @position.y += direction.y * @speed * dt
   @rotation = Math.atan2(direction.y, direction.x)
 
+  # Hit on collision
   if distance < 20
+    @target.hit(this)
     return []
   else
     return this
@@ -60,6 +73,7 @@ module.exports = (options={}) ->
     speed: options.speed || 1
     width: options.width || 1
     height: options.height || 1
+    damage: options.damage || 1
     texture: options.texture
     render: render
     target: target
