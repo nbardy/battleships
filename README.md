@@ -3,7 +3,6 @@ Starting
 
 git clone https://github.com/nbardy/battleships
 cd battleships
-./dev.sh
 
 Organization of Code
 -------------------
@@ -15,11 +14,9 @@ Organization of Code
 
     - objects folder -- All the parts of the game which come together
 
-
 Attributes
 ---------
 Uses pixi rendering engine
- 
 
 Icons by
 --------
