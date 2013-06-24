@@ -1,5 +1,5 @@
-Ships = require('./objects/ships')
-Weapons = require('./objects/weapons')
+Ships = require('../objects/ships')
+Weapons = require('../objects/weapons')
 
 document.weapons = Weapons
 

@@ -2,9 +2,9 @@
 (function() {
   var Ships, Weapons;
 
-  Ships = require('./objects/ships');
+  Ships = require('../objects/ships');
 
-  Weapons = require('./objects/weapons');
+  Weapons = require('../objects/weapons');
 
   document.weapons = Weapons;
 

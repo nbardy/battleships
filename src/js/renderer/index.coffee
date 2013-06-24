@@ -1,5 +1,7 @@
-PIXI = require('./lib/pixi.dev.js')
+PIXI = require('../lib/pixi.dev.js')
 window.PIXI = document.PIXI = PIXI
+
+object_renderer = require './object_renderer'
 
 module.exports =
   create: ->
@@ -14,6 +16,8 @@ module.exports =
     # add the renderer view element to the DOM
     document.body.appendChild(@renderer.view)
 
+    # The looping function
+    #
     update: (state) ->
       stage = @getStage(state)
       renderer.render stage
@@ -26,13 +30,18 @@ module.exports =
       # create an new instance of a pixi stage
       stage = new PIXI.Stage(0x66FF99)
 
+      # Create a wrapper to ignore empty sprites
+      stage.add = (sprite) ->
+        if sprite?
+          stage.addChild sprite
+
+      # Loops through each object
+      # adding it as a sprite
       render_objects = (objects) ->
         for object in objects
-          if object.render?
-            sprite = object.render()
-            if sprite?
-              stage.addChild  sprite
+          stage.add object_renderer(object)
 
+      # Rende all targetables and projectiles
       render_objects(state.projectiles)
       render_objects(state.targetables)
 

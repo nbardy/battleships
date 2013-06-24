@@ -9,18 +9,6 @@ attach = (item) ->
   item.position.x = @position.x
   item.position.y = @position.y
 
-default_render = ->
-  sprite = new PIXI.Sprite(@texture)
-  sprite.anchor.x = .5
-  sprite.anchor.y = .5
-  sprite.position.x = @position.x
-  sprite.position.y = @position.y
-  
-  sprite.width *= (@width  || 1)
-  sprite.height *= (@height || 1)
-
-  sprite
-
 default_update = (dt) ->
   @xvel = @xvel + @xacel
   @yvel = @yvel + @yacel
@@ -47,7 +35,6 @@ default_update = (dt) ->
 new_ship = (options={}) ->
   (xpos, ypos) ->
     type: "ship"
-    render: options.render || default_render
     update: options.update || default_update
     health: options.health || 100
     position:

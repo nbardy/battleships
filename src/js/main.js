@@ -2,9 +2,9 @@ var header = document.createElement('h4')
 header.innerHTML = "Battelships"
 document.body.appendChild(header)
 
-renderer = require('./renderer.js')
-gameplay = require('./gameplay.js')
-new_game = require('./new_game.js')
+renderer = require('./renderer')
+gameplay = require('./gameplay')
+new_game = require('./new_game')
 
 view = renderer.create()
 state = new_game()

@@ -15,21 +15,6 @@ normalize = (vec) ->
   scale = invSqrt(val)
   {x: vec.x * scale, y: vec.y * scale}
 
-render = ->
-  sprite = new PIXI.Sprite(@texture)
-  sprite.anchor.x = .5
-  sprite.anchor.y = .5
-  sprite.position.x = @position.x
-  sprite.position.y = @position.y
-  sprite.rotation = @rotation
-  sprite.width *= @width
-  sprite.height *= @height
-
-  # First frame is skipped bullet hasn't been rotated yet
-  if @rotation
-    sprite
-  else
-    undefined
 
 update = (dt) ->
   # If target is destroyed while projectile is in route
@@ -75,7 +60,6 @@ module.exports = (options={}) ->
     height: options.height || 1
     damage: options.damage || 1
     texture: options.texture
-    render: render
     target: target
     update: update
 
