@@ -28,6 +28,8 @@
               return stage.addChild(sprite);
             }
           };
+          console.log(state);
+          console.log(state.projectiles);
           render_objects = function(objects) {
             var object, _i, _len, _results;
             _results = [];

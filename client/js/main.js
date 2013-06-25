@@ -2,18 +2,31 @@ var header = document.createElement('h4')
 header.innerHTML = "Battelships"
 document.body.appendChild(header)
 
-renderer = require('./renderer')
-gameplay = require('./gameplay')
-new_game = require('./new_game')
+var socket = io.connect("http://localhost:8080");
 
-view = renderer.create()
-state = new_game()
+var renderer = require('./renderer')
+var view = renderer.create()
 
+var latest_state = {
+  targetables: [],
+  weapons: [],
+  projectiles: []
+}
+
+socket.on('update', function(data) {
+  latest_state = data
+})
+
+fetch_state = function() {
+  return latest_state
+}
+
+// Start Loop
 requestAnimFrame(update)
 
 function update() {
   // Update game state
-  state = gameplay.progress(state)
+  state = fetch_state()
 
   // Render game state
   view.update(state)

@@ -1,14 +1,44 @@
-Starting
--------
+Getting Starting
+================
 
+Dependencies
+  + [nodejs](http://nodejs.org)
+  + [browserify](http://browserify.org)
+
+Deployment
+----------
+
+clone the repository and enter it.
 ```bash
 git clone https://github.com/nbardy/battleships
 cd battleships
-npm install beefy browserify -g
-./dev.sh
 ```
-Then open port in 9966
+If you don't already have browserify intall it with npm.
 
+```bash
+npm install beefy browserify -g
+```
+
+Then simply running the `deploy.sh` script
+```bash
+./deploy.sh
+```
+And point your browser to [http://localhost:9966](http://localhost:9966)
+
+Development
+-----------
+Alternatively you can run the `development.sh` script and it will start the server with auto reloading of all the files required.
+
+This requires two more dependencies
+  + [beefy](http://didact.us/beefy/)
+  + [nodemon](http://remy.github.io/nodemon)
+
+```bash
+npm install
+./development.sh
+```
+
+[Then just visit the app](http://localhost:9966/client/dev/index.html)
 
 Organization of Code
 -------------------

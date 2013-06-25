@@ -1,5 +1,6 @@
 # Setup libs
-app = require('express')()
+express = require('express')
+app = express()
 server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 port = 8080
@@ -20,9 +21,15 @@ console.log url
 gameUp = false
 
 # Serve the game html
-app.get '/game', (req, res) ->
+app.get '/', (req, res) ->
   console.log 'game started'
-  res.sendfile "#{__dirname}/client/index.html"
+  res.sendfile "#{__dirname}/client/build/index.html"
+
+# Server the game javascript
+app.get '/index.js', (req, res) ->
+  res.sendfile "#{__dirname}/client/build/index.js"
+
+app.use "/img", express.static("#{__dirname}/img")
 
 find_space = ->
   "default room"

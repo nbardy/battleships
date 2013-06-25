@@ -1,5 +1,5 @@
 module.exports = (ship) ->
-  texture = PIXI.fromImage(ship.texture)
+  texture = PIXI.Texture.fromImage(ship.texture)
   sprite = new PIXI.Sprite(texture)
   sprite.anchor.x = .5
   sprite.anchor.y = .5

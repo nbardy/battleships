@@ -35,6 +35,8 @@ module.exports =
         if sprite?
           stage.addChild sprite
 
+      console.log(state)
+      console.log state.projectiles
       # Loops through each object
       # adding it as a sprite
       render_objects = (objects) ->
