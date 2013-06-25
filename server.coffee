@@ -26,9 +26,11 @@ joinGame = (socket) ->
     data = { i: 0 }
     lastTime = Date.now()
     (loop_call = ->
-      dt = Date.now() - lastTime
+      currentTime = Date.now()
+      dt = currentTime - lastTime
+      lastTime = currentTime
       data = update(data , dt)
-      io.sockets.in('game').emit('update', data)
+      io.sockets.in('game').emit('update', {i: data.i, dt: dt})
       setTimeout(loop_call, 1000 / 120))()
 
 find_space = ->
@@ -37,7 +39,7 @@ find_space = ->
 # Serve the game html
 app.get '/game', (req, res) ->
   console.log 'game started'
-  res.sendfile "#{__dirname}/client/src/index.html"
+  res.sendfile "#{__dirname}/client/index.html"
 
 io.sockets.on 'connection', (socket) ->
   joinGame(socket)

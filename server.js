@@ -36,10 +36,15 @@
       };
       lastTime = Date.now();
       return (loop_call = function() {
-        var dt;
-        dt = Date.now() - lastTime;
+        var currentTime, dt;
+        currentTime = Date.now();
+        dt = currentTime - lastTime;
+        lastTime = currentTime;
         data = update(data, dt);
-        io.sockets["in"]('game').emit('update', data);
+        io.sockets["in"]('game').emit('update', {
+          i: data.i,
+          dt: dt
+        });
         return setTimeout(loop_call, 1000 / 120);
       })();
     }
@@ -51,7 +56,7 @@
 
   app.get('/game', function(req, res) {
     console.log('game started');
-    return res.sendfile("" + __dirname + "/client/src/index.html");
+    return res.sendfile("" + __dirname + "/client/index.html");
   });
 
   io.sockets.on('connection', function(socket) {
