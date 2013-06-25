@@ -1,4 +1,4 @@
-texture = PIXI.Texture.fromImage("ship.png")
+texture = PIXI.Texture.fromImage("/img/ship.png")
 
 hit = (item) ->
   @health -= item.damage

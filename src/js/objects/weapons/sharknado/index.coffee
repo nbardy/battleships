@@ -1,6 +1,6 @@
 new_weapon = require('../weapon.js')
 
-texture = PIXI.Texture.fromImage("sharknado.png")
+texture = PIXI.Texture.fromImage("/img/sharknado.png")
 
 # Create laser
 module.exports =

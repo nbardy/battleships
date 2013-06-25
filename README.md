@@ -1,8 +1,14 @@
 Starting
 -------
 
+```bash
 git clone https://github.com/nbardy/battleships
 cd battleships
+npm install beefy browserify -g
+./dev.sh
+```
+Then open port in 9966
+
 
 Organization of Code
 -------------------

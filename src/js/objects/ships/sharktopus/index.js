@@ -4,7 +4,7 @@
 
   new_ship = require('../ship.js');
 
-  texture = PIXI.Texture.fromImage("sharktopus.png");
+  texture = PIXI.Texture.fromImage("/img/sharktopus.png");
 
   module.exports = new_ship({
     texture: texture,

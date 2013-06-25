@@ -1,6 +1,6 @@
 new_weapon = require('../weapon.js')
 
-texture = PIXI.Texture.fromImage("short-bullet.png")
+texture = PIXI.Texture.fromImage("/img/short-bullet.png")
 
 # Create cannon
 module.exports =

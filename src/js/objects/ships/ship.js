@@ -2,7 +2,7 @@
 (function() {
   var attach, default_update, hit, new_ship, texture;
 
-  texture = PIXI.Texture.fromImage("ship.png");
+  texture = PIXI.Texture.fromImage("/img/ship.png");
 
   hit = function(item) {
     return this.health -= item.damage;

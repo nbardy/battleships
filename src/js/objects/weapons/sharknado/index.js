@@ -4,7 +4,7 @@
 
   new_weapon = require('../weapon.js');
 
-  texture = PIXI.Texture.fromImage("sharknado.png");
+  texture = PIXI.Texture.fromImage("/img/sharknado.png");
 
   module.exports = new_weapon({
     range: 900,
