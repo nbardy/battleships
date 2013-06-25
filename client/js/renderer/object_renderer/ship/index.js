@@ -2,8 +2,9 @@
 (function() {
 
   module.exports = function(ship) {
-    var sprite;
-    sprite = new PIXI.Sprite(ship.texture);
+    var sprite, texture;
+    texture = PIXI.fromImage(ship.texture);
+    sprite = new PIXI.Sprite(texture);
     sprite.anchor.x = .5;
     sprite.anchor.y = .5;
     sprite.position.x = ship.position.x;

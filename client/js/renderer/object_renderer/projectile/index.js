@@ -2,8 +2,9 @@
 (function() {
 
   module.exports = function(object) {
-    var sprite;
-    sprite = new PIXI.Sprite(object.texture);
+    var sprite, texture;
+    texture = PIXI.Texture.fromImage(object.texture);
+    sprite = new PIXI.Sprite(texture);
     sprite.anchor.x = .5;
     sprite.anchor.y = .5;
     sprite.position.x = object.position.x;

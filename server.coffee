@@ -4,6 +4,8 @@ server = require('http').createServer(app)
 io = require('socket.io').listen(server)
 port = 8080
 
+gameServer = require('./server/main.js')
+
 url = if process.env.SUBDOMAIN?
   "http://#{process.env.SUBDOMAIN}.nodejitsu.com"
 else
@@ -17,6 +19,11 @@ gameUp = false
 
 update = (data,dt) ->
   i: data.i + 1
+
+# Serve the game html
+app.get '/game', (req, res) ->
+  console.log 'game started'
+  res.sendfile "#{__dirname}/client/index.html"
 
 joinGame = (socket) ->
   socket.join 'game'
@@ -35,11 +42,6 @@ joinGame = (socket) ->
 
 find_space = ->
   "default room"
-
-# Serve the game html
-app.get '/game', (req, res) ->
-  console.log 'game started'
-  res.sendfile "#{__dirname}/client/index.html"
 
 io.sockets.on 'connection', (socket) ->
   joinGame(socket)

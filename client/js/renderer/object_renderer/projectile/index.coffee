@@ -1,5 +1,6 @@
 module.exports = (object) ->
-  sprite = new PIXI.Sprite(object.texture)
+  texture = PIXI.Texture.fromImage(object.texture)
+  sprite = new PIXI.Sprite(texture)
   sprite.anchor.x = .5
   sprite.anchor.y = .5
   sprite.position.x = object.position.x
