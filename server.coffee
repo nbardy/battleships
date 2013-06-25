@@ -30,4 +30,3 @@ find_space = ->
 io.sockets.on 'connection', (socket) ->
   gameServer.start (state)->
     socket.emit('update', state)
-    console.log state.targetables[0].x

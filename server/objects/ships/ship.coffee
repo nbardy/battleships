@@ -10,8 +10,8 @@ attach = (item) ->
   item.position.y = @position.y
 
 default_update = (dt) ->
-  @xvel = @xvel + @xacel
-  @yvel = @yvel + @yacel
+  @xvel = @xvel + @xacel * dt
+  @yvel = @yvel + @yacel * dt
   @position.x = @position.x + @xvel
   @position.y = @position.y + @yvel
 
@@ -19,16 +19,21 @@ default_update = (dt) ->
 
   @yacel = (@yacel + Math.random() - .5 ) * dt * @acceleration
 
-  if Math.abs(@xacel) > 5
-    @xacel = -Math.abs(@xacel) / @xacel
+  if @xvel * dt > 30
+    @xacel = -5
+  else if @xvel * dt < -30
+    @xacel = 5
 
-  if Math.abs(@yacel) > 5
-    @yacel = -Math.abs(@yacel) / @yacel
+  if @yvel * dt > 30
+    @yacel = -5
+  else if @yvel * dt < -30
+    @yacel = 5
 
   if @health > 0
     this
   else
     []
+
 
 new_ship = (options={}) ->
   (xpos, ypos) ->

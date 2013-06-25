@@ -16,17 +16,21 @@
   };
 
   default_update = function(dt) {
-    this.xvel = this.xvel + this.xacel;
-    this.yvel = this.yvel + this.yacel;
+    this.xvel = this.xvel + this.xacel * dt;
+    this.yvel = this.yvel + this.yacel * dt;
     this.position.x = this.position.x + this.xvel;
     this.position.y = this.position.y + this.yvel;
     this.xacel = (this.xacel + Math.random() - .5) * dt * this.acceleration;
     this.yacel = (this.yacel + Math.random() - .5) * dt * this.acceleration;
-    if (Math.abs(this.xacel) > 5) {
-      this.xacel = -Math.abs(this.xacel) / this.xacel;
+    if (this.xvel * dt > 30) {
+      this.xacel = -5;
+    } else if (this.xvel * dt < -30) {
+      this.xacel = 5;
     }
-    if (Math.abs(this.yacel) > 5) {
-      this.yacel = -Math.abs(this.yacel) / this.yacel;
+    if (this.yvel * dt > 30) {
+      this.yacel = -5;
+    } else if (this.yvel * dt < -30) {
+      this.yacel = 5;
     }
     if (this.health > 0) {
       return this;

@@ -37,8 +37,7 @@
 
   io.sockets.on('connection', function(socket) {
     return gameServer.start(function(state) {
-      socket.emit('update', state);
-      return console.log(state.targetables[0].x);
+      return socket.emit('update', state);
     });
   });
 
