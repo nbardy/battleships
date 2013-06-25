@@ -22,28 +22,26 @@
 
   update = function(data, dt) {
     return {
-      i: data.i + dt
+      i: data.i + 1
     };
   };
 
   joinGame = function(socket) {
-    var i, lastTime;
+    var data, lastTime, loop_call;
     socket.join('game');
     if (!gameUp) {
-      i = 0;
+      gameUp = true;
+      data = {
+        i: 0
+      };
       lastTime = Date.now();
-      return setTimeout(function() {
+      return (loop_call = function() {
         var dt;
         dt = Date.now() - lastTime;
-        i = update({
-          i: i
-        }, dt);
-        io.sockets["in"]('game').emit('update', {
-          i: i,
-          dt: dt
-        });
-        return console.log("i", i);
-      }, 1000 / 80);
+        data = update(data, dt);
+        io.sockets["in"]('game').emit('update', data);
+        return setTimeout(loop_call, 1000 / 120);
+      })();
     }
   };
 

@@ -16,20 +16,20 @@ console.log url
 gameUp = false
 
 update = (data,dt) ->
-  i: data.i + dt
+  i: data.i + 1
 
 joinGame = (socket) ->
   socket.join 'game'
 
   unless gameUp
-    i = 0
+    gameUp = true
+    data = { i: 0 }
     lastTime = Date.now()
-    setTimeout ->
+    (loop_call = ->
       dt = Date.now() - lastTime
-      i = update({i: i},dt )
-      io.sockets.in('game').emit('update', i: i, dt: dt)
-      console.log "i", i
-    , 1000 / 80
+      data = update(data , dt)
+      io.sockets.in('game').emit('update', data)
+      setTimeout(loop_call, 1000 / 120))()
 
 find_space = ->
   "default room"

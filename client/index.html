@@ -28,8 +28,9 @@
               alert("joined" + data.room)
             });
 
-            socket.on('updatechat', function (data) {
-            document.getElementById("messages").innerHTML += ("<br />"+data.msg);
+            socket.on('update', function (data) {
+              document.getElementById("messages").innerHTML = data.i;
+              console.log(data.dt)
             });
 
           };

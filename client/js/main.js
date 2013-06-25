@@ -11,7 +11,6 @@ state = new_game()
 
 requestAnimFrame(update)
 
-
 function update() {
   // Update game state
   state = gameplay.progress(state)
@@ -21,5 +20,3 @@ function update() {
 
   requestAnimFrame(update)
 }
-
-
