@@ -29,7 +29,8 @@
             });
 
             socket.on('update', function (data) {
-              document.getElementById("messages").innerHTML = data.i;
+              document.getElementById("messages").innerHTML = data.targetables;
+              console.log(data.targetables)
               console.log(data.dt)
             });
 

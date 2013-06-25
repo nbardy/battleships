@@ -22,8 +22,12 @@
     this.position.y = this.position.y + this.yvel;
     this.xacel = (this.xacel + Math.random() - .5) * dt * this.acceleration;
     this.yacel = (this.yacel + Math.random() - .5) * dt * this.acceleration;
-    this.xacel = this.xacel + (Math.pow(window.innerWidth / 2 - this.position.x, 3) * 0.00000001);
-    this.yacel = this.yacel + (Math.pow(window.innerHeight / 2 - this.position.y, 3) * 0.00000001);
+    if (Math.abs(this.xacel) > 5) {
+      this.xacel = -Math.abs(this.xacel) / this.xacel;
+    }
+    if (Math.abs(this.yacel) > 5) {
+      this.yacel = -Math.abs(this.yacel) / this.yacel;
+    }
     if (this.health > 0) {
       return this;
     } else {

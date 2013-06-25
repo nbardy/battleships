@@ -4,7 +4,7 @@
 
   new_weapon = require('../weapon.js');
 
-  laser_texture = PIXI.Texture.fromImage("/img/laser.png");
+  laser_texture = "/img/laser.png";
 
   module.exports = new_weapon({
     range: 90,

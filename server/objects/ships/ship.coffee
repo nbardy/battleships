@@ -19,13 +19,11 @@ default_update = (dt) ->
 
   @yacel = (@yacel + Math.random() - .5 ) * dt * @acceleration
 
-  @xacel = @xacel + (
-    (Math.pow(window.innerWidth/2 - @position.x, 3)   * 0.00000001 )
-  )
+  if Math.abs(@xacel) > 5
+    @xacel = -Math.abs(@xacel) / @xacel
 
-  @yacel = @yacel + (
-    ( Math.pow(window.innerHeight/2 - @position.y, 3) * 0.00000001 )
-  )
+  if Math.abs(@yacel) > 5
+    @yacel = -Math.abs(@yacel) / @yacel
 
   if @health > 0
     this

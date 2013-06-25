@@ -2,9 +2,9 @@
 var RENDER_DELAY = 1000/120
 
 gameplay = require('./gameplay')
-new_game = require('./new_game/basic')
+basic_new_game = require('./new_game/basic')
 
-var state = new_game()
+var state = basic_new_game()
 
 var lastTime = Date.now()
 
@@ -18,23 +18,15 @@ start_game_loop = function(callback) {
 
     // If a callback was passed call it
     if(callback) {
-      callback()
+      callback(state)
     }
 
-    return setTimeout(loop, DELAY)
+    return setTimeout(loop, RENDER_DELAY)
   }
 
   return loop()
 }
 
-function update() {
-  // Update game state
-  state = gameplay.progress(state)
-
-  // Render game state
-  view.update(state)
-
-  requestAnimFrame(update)
+module.exports = {
+  start: start_game_loop 
 }
-
-module.exports = start_game_loop 

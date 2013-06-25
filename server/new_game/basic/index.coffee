@@ -1,7 +1,11 @@
 console.log 'dirname', __dirname
+path = require('path')
+Ships = require(path.resolve('./server/objects/ships'))
+Weapons = require(path.resolve('./server/objects/weapons'))
 
-Ships = require('./server/objects/ships')
-Weapons = require('./server/objects/weapons')
+window =
+  innerHeight: 600
+  innerWidth: 800
 
 module.exports = ->
   small1 = Ships.small(
