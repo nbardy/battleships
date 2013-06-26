@@ -2,15 +2,15 @@ new_weapon = require('../weapon.js')
 
 texture = "/img/long-bullet.png"
 
-# Create laser
+# Create Sniper
 module.exports =
   new_weapon
-    range: 900
-    rate: 13
+    range: 1000
+    rate: 4
     projectile:
       texture: texture
-      speed: 125
+      speed: 600
       acceleration: 0
       damage: 100
-      width: .2
-      height: .4
+      width: .3
+      height: .2
