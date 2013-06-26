@@ -60,6 +60,7 @@ module.exports = (options={}) ->
     height: options.height || 1
     damage: options.damage || 1
     texture: options.texture
+    anchor: options.anchor || { x: 0.5, y: 0.5 }
     target: target
     update: update
 

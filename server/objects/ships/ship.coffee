@@ -10,23 +10,26 @@ attach = (item) ->
   item.position.y = @position.y
 
 default_update = (dt) ->
-  @xvel = @xvel + @xacel * dt
-  @yvel = @yvel + @yacel * dt
-  @position.x = @position.x + @xvel
-  @position.y = @position.y + @yvel
+  # Acceleration
+  @xvel = @xvel + (@xacel * dt)
+  @yvel = @yvel + (@yacel * dt)
 
-  @xacel = (@xacel + Math.random() - .5 ) * dt * @acceleration
+  # Move
+  @position.x = @position.x + (@xvel * dt)
+  @position.y = @position.y + (@yvel * dt)
 
-  @yacel = (@yacel + Math.random() - .5 ) * dt * @acceleration
+  # Change acceleration
+  @xacel = @xacel + ((Math.random() - .5) * @acceleration)
+  @yacel = @yacel + ((Math.random() - .5) * @acceleration)
 
-  if @xvel * dt > 30
+  if @xvel > 30
     @xacel = -5
-  else if @xvel * dt < -30
+  else if @xvel < -30
     @xacel = 5
 
-  if @yvel * dt > 30
+  if @yvel > 30
     @yacel = -5
-  else if @yvel * dt < -30
+  else if @yvel < -30
     @yacel = 5
 
   if @health > 0

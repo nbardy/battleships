@@ -11,7 +11,9 @@ var lastTime = Date.now()
 start_game_loop = function(callback) {
   function loop() {
     var currentTime = Date.now()
-    var delta_time = currentTime - lastTime
+
+    // Give change in time as seconds
+    var delta_time = (currentTime - lastTime) / 1000
     lastTime = currentTime
 
     state = gameplay.progress(state, delta_time)

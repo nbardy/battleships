@@ -8,6 +8,7 @@ module.exports = (object) ->
   sprite.rotation = object.rotation
   sprite.width *= object.width
   sprite.height *= object.height
+  sprite.anchor = object.anchor
 
   # First frame is skipped bullet hasn't been rotated yet
   if object.rotation

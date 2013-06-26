@@ -12,6 +12,7 @@
     sprite.rotation = object.rotation;
     sprite.width *= object.width;
     sprite.height *= object.height;
+    sprite.anchor = object.anchor;
     if (object.rotation) {
       return sprite;
     } else {

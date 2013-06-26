@@ -16,20 +16,20 @@
   };
 
   default_update = function(dt) {
-    this.xvel = this.xvel + this.xacel * dt;
-    this.yvel = this.yvel + this.yacel * dt;
-    this.position.x = this.position.x + this.xvel;
-    this.position.y = this.position.y + this.yvel;
-    this.xacel = (this.xacel + Math.random() - .5) * dt * this.acceleration;
-    this.yacel = (this.yacel + Math.random() - .5) * dt * this.acceleration;
-    if (this.xvel * dt > 30) {
+    this.xvel = this.xvel + (this.xacel * dt);
+    this.yvel = this.yvel + (this.yacel * dt);
+    this.position.x = this.position.x + (this.xvel * dt);
+    this.position.y = this.position.y + (this.yvel * dt);
+    this.xacel = this.xacel + ((Math.random() - .5) * this.acceleration);
+    this.yacel = this.yacel + ((Math.random() - .5) * this.acceleration);
+    if (this.xvel > 30) {
       this.xacel = -5;
-    } else if (this.xvel * dt < -30) {
+    } else if (this.xvel < -30) {
       this.xacel = 5;
     }
-    if (this.yvel * dt > 30) {
+    if (this.yvel > 30) {
       this.yacel = -5;
-    } else if (this.yvel * dt < -30) {
+    } else if (this.yvel < -30) {
       this.yacel = 5;
     }
     if (this.health > 0) {

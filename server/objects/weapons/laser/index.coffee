@@ -9,7 +9,7 @@ module.exports =
     rate: 0.1666666666666666
     projectile:
       texture: laser_texture
-      speed: 125
+      speed: 250
       damage: 5
       acceleration: 0
       width: 13
