@@ -4,7 +4,7 @@ window.PIXI = document.PIXI = PIXI
 object_renderer = require './object_renderer'
 
 module.exports =
-  create: ->
+  create: (context) ->
     # create a renderer instance.
     renderer = PIXI.autoDetectRenderer(
       window.innerWidth - 50,
@@ -14,7 +14,8 @@ module.exports =
     @renderer = renderer
 
     # add the renderer view element to the DOM
-    document.body.appendChild(@renderer.view)
+    context.innerHTML = ""
+    context.appendChild @renderer.view
 
     # The looping function
     #
@@ -35,8 +36,6 @@ module.exports =
         if sprite?
           stage.addChild sprite
 
-      console.log(state)
-      console.log state.projectiles
       # Loops through each object
       # adding it as a sprite
       render_objects = (objects) ->

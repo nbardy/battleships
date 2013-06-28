@@ -9,11 +9,12 @@
   object_renderer = require('./object_renderer');
 
   module.exports = {
-    create: function() {
+    create: function(context) {
       var renderer;
       renderer = PIXI.autoDetectRenderer(window.innerWidth - 50, window.innerHeight - 50);
       this.renderer = renderer;
-      document.body.appendChild(this.renderer.view);
+      context.innerHTML = "";
+      context.appendChild(this.renderer.view);
       return {
         update: function(state) {
           var stage;
@@ -28,8 +29,6 @@
               return stage.addChild(sprite);
             }
           };
-          console.log(state);
-          console.log(state.projectiles);
           render_objects = function(objects) {
             var object, _i, _len, _results;
             _results = [];

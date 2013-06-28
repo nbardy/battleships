@@ -9,7 +9,7 @@ module.exports =
     rate: 5
     projectile:
       texture: texture
-      speed: 60
+      speed: 630
       acceleration: 0
       damage: 7.5
       width: .5
