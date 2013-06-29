@@ -8,7 +8,7 @@
     } else if (object.type === 'projectile') {
       return require('./projectile')(object);
     } else {
-
+      return [];
     }
   };
 

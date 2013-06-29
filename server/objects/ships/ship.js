@@ -48,6 +48,7 @@
         type: "ship",
         update: options.update || default_update,
         health: options.health || 100,
+        max_health: options.health || 100,
         position: {
           x: xpos || 0,
           y: ypos || 0

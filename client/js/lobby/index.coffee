@@ -6,7 +6,9 @@ module.exports =
     for id, game of games
       string += """
       <span>ID:</span> #{game.id}
+      <br />
       <span>Players: </span> #{game.players.join(",")}
+      <br />
       <button class="join-button"
         data-game-id="#{game.id}">Join</button>
       """

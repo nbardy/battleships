@@ -4,6 +4,6 @@ lookup = (object) ->
   else if object.type == 'projectile'
     return require('./projectile')(object)
   else
-    return
+    return []
 
 module.exports = lookup

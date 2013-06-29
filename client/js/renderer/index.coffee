@@ -32,9 +32,11 @@ module.exports =
       stage = new PIXI.Stage(0x66FF99)
 
       # Create a wrapper to ignore empty sprites
-      stage.add = (sprite) ->
-        if sprite?
-          stage.addChild sprite
+      stage.add = (sprites) ->
+        # Use empty concat to accomadate single items
+        for sprite in [].concat(sprites)
+          if sprite?
+            stage.addChild sprite
 
       # Loops through each object
       # adding it as a sprite

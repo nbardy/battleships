@@ -2,9 +2,9 @@
 (function() {
   var MAX_PLAYERS, OPEN_GAMES, app, broadcast_state, createPlayer, current_id, express, gameServer, games_spawned, io, joinGame, newGame, open_games, player_id, port, server, spawnGame, url;
 
-  MAX_PLAYERS = 2;
+  MAX_PLAYERS = 1;
 
-  OPEN_GAMES = 2;
+  OPEN_GAMES = 9;
 
   express = require('express');
 

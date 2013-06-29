@@ -1,5 +1,5 @@
-MAX_PLAYERS = 2
-OPEN_GAMES = 2
+MAX_PLAYERS = 1
+OPEN_GAMES = 9
 # Setup libs
 express = require('express')
 app = express()

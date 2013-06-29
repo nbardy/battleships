@@ -24,10 +24,19 @@
         getStage: function(state) {
           var render_objects, stage;
           stage = new PIXI.Stage(0x66FF99);
-          stage.add = function(sprite) {
-            if (sprite != null) {
-              return stage.addChild(sprite);
+          stage.add = function(sprites) {
+            var sprite, _i, _len, _ref, _results;
+            _ref = [].concat(sprites);
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              sprite = _ref[_i];
+              if (sprite != null) {
+                _results.push(stage.addChild(sprite));
+              } else {
+                _results.push(void 0);
+              }
             }
+            return _results;
           };
           render_objects = function(objects) {
             var object, _i, _len, _results;
