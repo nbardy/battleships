@@ -9,7 +9,7 @@
       string = "";
       for (id in games) {
         game = games[id];
-        string += "<span>ID:</span> " + game.id + "\n<br />\n<span>Players: </span> " + (game.players.join(",")) + "\n<br />\n<button class=\"join-button\"\n  data-game-id=\"" + game.id + "\">Join</button>";
+        string += "<span>ID:</span> " + game.id + "\n<br />\n<span>Players: </span> " + game.players + "\n<br />\n<button class=\"join-button\"\n  data-game-id=\"" + game.id + "\">Join</button>";
       }
       joinButtons = document.getElementsByClassName('join-button');
       context.innerHTML = string;

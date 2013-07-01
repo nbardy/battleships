@@ -27,6 +27,7 @@ socket.on('open_games', function(data) {
 
 // Check for first update to add viewport to main viewing elemtn
 socket.on('game_start', function(data) {
+  inGame = true
   // Set initial state
   var latest_state = {
     targetables: [],

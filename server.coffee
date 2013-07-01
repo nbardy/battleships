@@ -1,4 +1,4 @@
-MAX_PLAYERS = 1
+MAX_PLAYERS = 2
 OPEN_GAMES = 9
 # Setup libs
 express = require('express')
@@ -46,13 +46,12 @@ joinGame = (id, player) ->
   else
     false
 
-newGame = ->
-  id: current_id++
+newGame = (id)->
+  id: id
   players: []
   add: (player) ->
     # Add player to the list
     @players.push(player)
-    console.log "added to", this
 
     # If game is full close and start the game
     if @players.length == MAX_PLAYERS
@@ -61,6 +60,8 @@ newGame = ->
       # Assign to socket group from game id
       gameTag = "game-#{@id}"
       for player in @players
+        # Add to game group and remove from lobby
+        player.socket.leave('lobby')
         player.socket.join(gameTag)
 
       # Start the game
@@ -76,7 +77,7 @@ newGame = ->
 
   close: ->
     # Remove from open game list
-    delete open_games[@id] = null
+    delete open_games[@id]
 
     # Spawn game whenever one closes to remain balance
     spawnGame()
@@ -86,9 +87,13 @@ newGame = ->
 #
 #   Note: Starts with 1 open game by default
 open_games = {}
+prettify_games = (open_games) ->
+  for id, game of open_games
+    id: id
+    players: game.players.length
 
 spawnGame = ->
-  open_games[current_id] = newGame()
+  open_games[current_id] = newGame(current_id++)
 
 # Creates the appropiate amount of initial open games
 games_spawned = 0
@@ -107,9 +112,13 @@ io.sockets.on 'connection', (socket) ->
   player = createPlayer socket
 
   # Tell new connections about open games
-  socket.emit 'open_games', open_games
-  console.log 'emitted open games', open_games
+  socket.join 'lobby'
+  console.log "emitting open", prettify_games(open_games)
+  socket.emit 'open_games', prettify_games(open_games)
+
 
   # On join, join a game
   socket.on 'join', (id) ->
+    console.log "emitting open post join", prettify_games(open_games)
     joinGame id, player
+    io.sockets.in('lobby').emit 'open_games', prettify_games(open_games)
