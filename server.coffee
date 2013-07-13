@@ -1,6 +1,6 @@
 MAX_PLAYERS = 2
 OPEN_GAMES = 9
-# Setup libs
+# Setup libs for server
 express = require('express')
 app = express()
 server = require('http').createServer(app)
@@ -8,6 +8,8 @@ io = require('socket.io').listen(server)
 port = 8080
 io.set('log level', 1)
 
+# require local libs
+lobby = require('./lib/lobby')
 gameServer = require('./server/main.js')
 
 url = if process.env.SUBDOMAIN?
@@ -31,74 +33,32 @@ app.get '/index.js', (req, res) ->
 
 app.use "/img", express.static("#{__dirname}/img")
 
-current_id = 0
-
-# Broadcast a state to multiple players
-broadcast_state = (state, players) ->
+# Starts game with the given players
+start_game = (players) ->
+  # Assign to socket group from game id
+  gameTag = "game-#{@id}"
   for player in players
-    player.socket.emit('update', state)
+    # Add to game group and remove from lobby
+    player.socket.leave('lobby')
+    player.socket.join(gameTag)
 
-joinGame = (id, player) ->
-  if not player.game?
-    open_games[id].add player
-    player.game = open_games[id]
-    true
-  else
-    false
+  # Start the game
+  io.sockets.in(gameTag).emit('game_start')
 
-newGame = (id)->
-  id: id
-  players: []
-  add: (player) ->
-    # Add player to the list
-    @players.push(player)
+  # Broadcast state to all players on each iteration
+  gameServer.start (state) ->
+    io.sockets.in(gameTag).emit('update', state)
 
-    # If game is full close and start the game
-    if @players.length == MAX_PLAYERS
-      @close()
+# Creates lobby and pass the start game callback for full lobbies
+lobby = lobby.create
+  on_full: start_game
 
-      # Assign to socket group from game id
-      gameTag = "game-#{@id}"
-      for player in @players
-        # Add to game group and remove from lobby
-        player.socket.leave('lobby')
-        player.socket.join(gameTag)
-
-      # Start the game
-      io.sockets.in(gameTag).emit('game_start')
-
-      # Broadcast state to all players on each iteration
-      gameServer.start (state) ->
-        io.sockets.in(gameTag).emit('update', state)
-
-      # BUG: Not sure but I believe this helps to clear a closure
-      # which is passed to a loop
-      players = null
-
-  close: ->
-    # Remove from open game list
-    delete open_games[@id]
-
-    # Spawn game whenever one closes to remain balance
-    spawnGame()
-
-# A map of open games
-#   id: game
-#
-#   Note: Starts with 1 open game by default
-open_games = {}
 prettify_games = (open_games) ->
+  console.log 'pretty', open_games
   for id, game of open_games
     id: id
-    players: game.players.length
+    players: game.persons.length
 
-spawnGame = ->
-  open_games[current_id] = newGame(current_id++)
-
-# Creates the appropiate amount of initial open games
-games_spawned = 0
-while games_spawned++ < OPEN_GAMES
-  spawnGame()
 
 # Creates a new player from a socket
 player_id = 0
@@ -113,12 +73,12 @@ io.sockets.on 'connection', (socket) ->
 
   # Tell new connections about open games
   socket.join 'lobby'
-  console.log "emitting open", prettify_games(open_games)
-  socket.emit 'open_games', prettify_games(open_games)
+  console.log "emitting open", prettify_games(lobby.open_groups)
+  socket.emit 'open_games', prettify_games(lobby.open_groups)
 
 
   # On join, join a game
   socket.on 'join', (id) ->
-    console.log "emitting open post join", prettify_games(open_games)
-    joinGame id, player
-    io.sockets.in('lobby').emit 'open_games', prettify_games(open_games)
+    console.log "emitting open post join", prettify_games(lobby.open_groups)
+    lobby.group(id).add(player)
+    io.sockets.in('lobby').emit 'open_games', prettify_games(lobby.open_groups)
