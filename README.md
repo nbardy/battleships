@@ -16,14 +16,14 @@ cd battleships
 If you don't already have browserify intall it with npm.
 
 ```bash
-npm install beefy browserify -g
+npm install browserify -g
 ```
 
 Then simply running the `deploy.sh` script
 ```bash
 ./deploy.sh
 ```
-And point your browser to [http://localhost:9966](http://localhost:9966)
+And point your browser to [http://localhost:8080](http://localhost:8080)
 
 Development
 -----------
@@ -33,8 +33,13 @@ This requires two more dependencies
   + [beefy](http://didact.us/beefy/)
   + [nodemon](http://remy.github.io/nodemon)
 
+This will require root(sudo)
 ```bash
-npm install
+npm install nodemon beefy -g
+```
+
+Then run the script
+```bash
 ./development.sh
 ```
 
@@ -43,12 +48,21 @@ npm install
 Organization of Code
 -------------------
 
-    - main.js -- fire everything off
+    - server.coffee -- handles the all the incoming routes and websocket traffic
 
-    - gameplay.coffee -- holds the update loop base
-    - renderer.coffee -- holds the render loop base
+    - lib/ -- homebaked libraries
 
-    - objects folder -- All the parts of the game which come together
+    - server/ -- All of the game server logic
+        - main.js -- sets up the main game loop
+        - gameplay/ -- holds the gameplay logic
+        - new_game/ -- holds a new game configuration
+        - objects/ -- holds all the various object definitons (Everything in game is a collection of objects)
+    
+    - client/ -- All of the code passed clientside
+        - js/
+            - main.js/ --external libraries
+            - lobby/ -- handles the lobby for joining games
+            - renderer/ -- Code rendering the game
 
 Attributes
 ---------
